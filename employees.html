@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PeopleDesk | Employees</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">P</span>
+        <span>PeopleDesk</span>
+      </a>
+
+      <p class="menu-label">WORKSPACE</p>
+
+      
+<nav class="navigation">
+  <a href="index.html" class="nav-link" data-page="dashboard">
+    <span>▦</span> Dashboard
+  </a>
+
+  <a href="employees.html" class="nav-link active" data-page="employees">
+    <span>♙</span> Employees
+  </a>
+</nav>
+
+      <div class="sidebar-bottom">
+        <div class="profile-avatar">AD</div>
+        <div>
+          <strong>Admin User</strong>
+          <p>Administrator</p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="employees-page">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">WORKSPACE / EMPLOYEES</p>
+          <h1>Employees</h1>
+        </div>
+
+        <button type="button" class="primary-btn" id="add-employee-btn">
+          + Add Employee
+        </button>
+      </header>
+
+      <section class="panel" id="employee-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Employee Directory</h2>
+            <p>Search, filter, and manage employee information.</p>
+          </div>
+          <span class="record-count" id="record-count">0 employees</span>
+        </div>
+
+        <div class="toolbar">
+          <div class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input
+              type="search"
+              id="search-input"
+              placeholder="Search name, email or job title..."
+              aria-label="Search employees"
+            >
+          </div>
+
+          <select id="department-filter" aria-label="Filter by department">
+            <option value="">All Departments</option>
+          </select>
+
+          <select id="status-filter" aria-label="Filter by status">
+            <option value="">All Statuses</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+
+          <select id="sort-select" aria-label="Sort employees">
+            <option value="name-asc">Name: A to Z</option>
+            <option value="name-desc">Name: Z to A</option>
+            <option value="salary-desc">Salary: High to Low</option>
+            <option value="salary-asc">Salary: Low to High</option>
+            <option value="department-asc">Department: A to Z</option>
+            <option value="department-desc">Department: Z to A</option>
+          </select>
+
+          <button type="button" class="secondary-btn" id="import-csv-btn">
+            ↑ Import CSV
+          </button>
+
+          <input type="file" id="import-csv-input" accept=".csv,text/csv" hidden>
+
+          <button type="button" class="secondary-btn" id="export-csv-btn">
+            ↓ Export CSV
+          </button>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>EMPLOYEE</th>
+                <th>DEPARTMENT</th>
+                <th>JOB TITLE</th>
+                <th>SALARY / MONTH</th>
+                <th>STATUS</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody id="employee-table-body"></tbody>
+          </table>
+        </div>
+
+        <div class="empty-state" id="empty-state" hidden>
+          <div class="empty-icon">♙</div>
+          <h3>No employees found</h3>
+          <p>Try changing your search or add a new employee.</p>
+        </div>
+
+        <div class="table-footer">
+          <span id="table-summary">Showing 0 employees</span>
+
+          <div class="pagination">
+            <button type="button" class="secondary-btn" id="prev-page-btn" disabled>
+              Previous
+            </button>
+            <span id="page-info" aria-live="polite">Page 1 of 1</span>
+            <button type="button" class="secondary-btn" id="next-page-btn" disabled>
+              Next
+            </button>
+          </div>
+
+          <button type="button" class="secondary-btn" id="reset-filters-btn">
+            Reset filters
+          </button>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        PeopleDesk · Employee Management System
+      </footer>
+    </main>
+  </div>
+
+  <!-- Add/Edit Employee dialog -->
+  <dialog id="employee-dialog">
+    <form id="employee-form">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">EMPLOYEE RECORD</p>
+          <h2 id="dialog-title">Add Employee</h2>
+        </div>
+
+        <button type="button" class="close-btn" id="close-dialog"
+          aria-label="Close dialog">×</button>
+      </div>
+
+      <input type="hidden" id="employee-id">
+
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="full-name">Full Name *</label>
+          <input id="full-name" name="fullName" required minlength="2"
+            maxlength="80" placeholder="Employee name">
+        </div>
+
+        <div class="form-field">
+          <label for="email">Email Address *</label>
+          <input id="email" name="email" type="email" required
+            maxlength="120" placeholder="employee@example.com">
+        </div>
+
+        <div class="form-field">
+          <label for="department">Department *</label>
+          <select id="department" name="department" required>
+            <option value="">Select department</option>
+            <option>Engineering</option>
+            <option>Human Resources</option>
+            <option>Finance</option>
+            <option>Marketing</option>
+            <option>Sales</option>
+            <option>Operations</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="job-title">Job Title *</label>
+          <input id="job-title" name="jobTitle" required maxlength="80"
+            placeholder="Job title">
+        </div>
+
+        <div class="form-field">
+          <label for="salary">Monthly Salary (₹) *</label>
+          <input id="salary" name="salary" type="number" required
+            min="0" max="100000000" step="1" placeholder="45000">
+        </div>
+
+        <div class="form-field">
+          <label for="status">Employment Status *</label>
+          <select id="status" name="status" required>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+
+      <p class="form-error" id="form-error" role="alert"></p>
+
+      <div class="dialog-actions">
+        <button type="button" class="secondary-btn" id="cancel-btn">
+          Cancel
+        </button>
+        <button type="submit" class="primary-btn" id="save-btn">
+          Save Employee
+        </button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,112 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PeopleDesk | Employee Profile</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="employee-profile.js" defer></script>
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">P</span>
+        <span>PeopleDesk</span>
+      </a>
+
+      <p class="menu-label">WORKSPACE</p>
+
+      <nav class="navigation">
+        <a href="index.html" class="nav-link">
+          <span>▦</span> Dashboard
+        </a>
+        <a href="employees.html" class="nav-link active">
+          <span>♙</span> Employees
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="profile-avatar">AD</div>
+        <div>
+          <strong>Admin User</strong>
+          <p>Administrator</p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">WORKSPACE / EMPLOYEES / PROFILE</p>
+          <h1>Employee Profile</h1>
+        </div>
+
+        <a href="employees.html" class="secondary-btn">
+          ← Back to Employees
+        </a>
+      </header>
+
+      <section class="panel employee-profile-card">
+        <div class="profile-header">
+          <div class="profile-large-avatar" id="profile-initials">--</div>
+          <div>
+            <h2 id="profile-name">Loading employee...</h2>
+            <p id="profile-job-title">Please wait</p>
+            <span id="profile-status" class="status">Loading</span>
+          </div>
+        </div>
+
+        <hr>
+
+        <h3>Personal and Employment Details</h3>
+
+        <div class="profile-details">
+          <div>
+            <span class="profile-label">Email Address</span>
+            <p id="profile-email">—</p>
+          </div>
+
+          <div>
+            <span class="profile-label">Department</span>
+            <p id="profile-department">—</p>
+          </div>
+
+          <div>
+            <span class="profile-label">Job Title</span>
+            <p id="profile-job-detail">—</p>
+          </div>
+
+          <div>
+            <span class="profile-label">Monthly Salary</span>
+            <p id="profile-salary">—</p>
+          </div>
+
+          <div>
+            <span class="profile-label">Employee ID</span>
+            <p id="profile-id">—</p>
+          </div>
+
+          <div>
+            <span class="profile-label">Created At</span>
+            <p id="profile-created-at">—</p>
+          </div>
+        </div>
+
+        <p id="profile-error" class="form-error" role="alert"></p>
+
+        <div class="dialog-actions">
+          <button type="button" class="secondary-btn" id="back-button">
+            Back to Employees
+          </button>
+          <button type="button" class="primary-btn" id="edit-profile-btn">
+            Edit Employee
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
+```
